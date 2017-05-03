@@ -12,8 +12,12 @@ bot.on("message", msg => {
     msg.delete();
     msg.channel.sendFile("https://cdn.discordapp.com/attachments/240561455819128832/241257595237564416/a78.gif");
     }
+  if (msg.content.startsWith("/zelote")) {
+    msg.delete();
+    msg.channel.sendMessage("(╬ ಠ益ಠ)");
+    }
 });
 bot.on('ready', () => {
   console.log('I am ready!');
 });
-bot.login("MjQ1OTU2OTQ2NTk3NzczMzEz.CwxBEg.y5sCzk9q1HAJHsTYzCYh204IYNE");
+bot.login("MjQ1OTU2OTQ2NTk3NzczMzEz.C-ujZA.ihTIyoAKtlpM3_lleVbD6aB9zKk");
