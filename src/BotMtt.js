@@ -10,12 +10,26 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "MjQ1OTU2OTQ2NTk3NzczMzEz.C-ujZA.ihTIyoAKtlpM3_lleVbD6aB9zKk";
+var fs = require('fs');
+var commands;
 
-/*bot.on('voiceStateUpdate', (oldMember, newMember) => {
-newMember.client.sendMessage(244530486263676928, "zbleh");
-console.log(newMember.client);
-console.log('je change de channel');
-});*/
+//var obj = {
+//   table: []
+//};
+//obj.table.push({id: 1, square:2});
+//var json = JSON.stringify(obj);
+//fs.writeFile('myjsonfile.json', json, 'utf8');
+
+fs.readFile('commands.json', 'utf8', function readFileCallback(err, data){
+    if (err){
+        console.log(err);
+    } else {
+    commands = JSON.parse(data); //now it an object
+   // obj.table.push({"profile_command":"show"}); //add some data
+    json = JSON.stringify(obj); //convert it back to json
+    fs.writeFile('myjsonfile.json', json, 'utf8'); // write it back 
+}});
+
 
 bot.on("message", msg => {
   if (msg.content.startsWith("::")) {
