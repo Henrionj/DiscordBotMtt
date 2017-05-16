@@ -1,7 +1,5 @@
 {
-    "commands":
-        {
-            "image_command":["add","delete","show_data"],
-            "profile_command":"show"
-        }
+    "data": ["add", "delete", "show_all"],
+    "profile": ["edit", "delete", "show"]
+
 }
