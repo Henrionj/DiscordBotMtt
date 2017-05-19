@@ -15,7 +15,6 @@ var data_file;
 var commands;
 var embed;
 
-//On charge les commandes json dans la variable image_commands
 fs.readFile('data.json', 'utf8', function readFileCallback(err, data) {
     if (err) {
         console.log(err);
@@ -62,21 +61,55 @@ bot.on("message", msg => {
         //                embed
         //            });
         //        }
-        //TODO changer la regex en regex générale, puis faire un switch pour gérer les différents cas de figure.
-        var regex_add = /add\s(.+)\s(.+)/; //regex des commande
-        if (regex_add.test(command)) {
-            command = command.match(regex_add);
-        //TODO gérer le cas des espaces blancs dans les data, faire en sorte de vérifier l'url pour classer entre text et image.
-            data_file[command[2]] = {
-                "data": command[1],
-                "type": "image"
-            };
-            var json = JSON.stringify(data_file);
-            fs.writeFile('data.json', json, 'utf8');
-            console.log('add complete!');
+
+        var reg_command = /\w+/; //permet de recupérer le premier mot
+
+        if (reg_command.test(command)) {
+            action = command.match(reg_command);
+            switch (action[0]) {
+                case "add":
+                    command = command.match(/add\s(.+)\s(.+)/);
+                    if (/\.(gif|jpg|jpeg|tiff|png)$/i.test(command[1])) {
+                        data_file[command[2]] = {
+                            "data": command[1],
+                            "type": "image"
+                        };
+                    } else {
+                        data_file[command[2]] = {
+                            "data": command[1],
+                            "type": "text"
+                        };
+                    }
+                    var json = JSON.stringify(data_file);
+                    fs.writeFile('data.json', json, 'utf8');
+                    msg.reply('add complete!');
+                    break;
+                case "delete":
+                    command = command.match(/delete\s(\w+)/);
+                    delete data_file[command[1]];
+                    var json = JSON.stringify(data_file);
+                    fs.writeFile('data.json', json, 'utf8');
+                    msg.reply('delete complete!');
+                    break;
+                case "show_all":
+                    embed.setTitle("Commandes possibles pour smiley/images :");
+                    var keys = "";
+                    for(key in data_file)
+                        {
+                            keys = keys+"\n-"+key;
+                        }
+                    embed.setDescription(keys);
+                    msg.channel.send({
+                embed
+            });
+                    
+
+            }
+            //TODO gérer le cas des espaces blancs dans les data, faire en sorte de vérifier l'url pour classer entre text et image.
+
         }
 
-
+        //TODO faire les profils éditables
         //    switch(command)
         //    {
         //      case "cute":

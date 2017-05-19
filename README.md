@@ -12,3 +12,4 @@ TODO
 
 .account profile with commands to customize him
 .gif/image repo with commands to create them
+.spoil command
