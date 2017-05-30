@@ -29,7 +29,13 @@ fs.readFile('commands.json', 'utf8', function readFileCallback(err, data) {
         commands = JSON.parse(data);
     }
 });
-
+//bot.on("message", msg => {
+//    if (msg.content.startsWith("test")) {
+//        msg.member.roles.forEach(function(role){
+//            msg.channel.send("nom du rôle : "+role.name);
+//        });
+//    
+//    }});
 
 bot.on("message", msg => {
     if (msg.content.startsWith("::")) {
@@ -55,13 +61,6 @@ bot.on("message", msg => {
             });
 
         }
-        //        else {
-        //            embed.addField('Not found', "¯\\_(ツ)_/¯");
-        //            msg.channel.send({
-        //                embed
-        //            });
-        //        }
-
         var reg_command = /\w+/; //permet de recupérer le premier mot
 
         if (reg_command.test(command)) {
@@ -94,15 +93,45 @@ bot.on("message", msg => {
                 case "show_all":
                     embed.setTitle("Commandes possibles pour smiley/images :");
                     var keys = "";
-                    for(key in data_file)
-                        {
-                            keys = keys+"\n-"+key;
-                        }
+                    for (key in data_file) {
+                        keys = keys + "\n-" + key;
+                    }
                     embed.setDescription(keys);
                     msg.channel.send({
-                embed
-            });
-                    
+                        embed
+                    });
+                    break;
+                case "help":
+                    embed.setTitle("    Commandes du bot : ");
+                    embed.addBlankField();
+                    for (type_command in commands) {
+                        embed.addField(type_command.toUpperCase(), "-----------------------------");
+                        current_type_command = commands[type_command];
+                        for (command in current_type_command) {
+                            if (current_type_command[command] != "") {
+                                embed.addField(command, current_type_command[command]);
+
+                            } else {
+                                embed.addField(command, "Aucune description.");
+                            }
+                        }
+                    }
+                    msg.channel.send({
+                        embed
+                    });
+                    break;
+                case "spoil":
+                    msg.delete();
+                    spoiler = command.match(/spoil\s(.+)-t/);
+                    titre = command.match(/-t(.+)/);
+                    embed.setTitle(titre[1]);
+                  //  embed.attachFile("../res/spoil_warning.png");
+                  //  embed.setImage("attachment://" + "../res/spoil_warning.png");
+                    msg.channel.send({
+                        embed
+                    });
+                    break;
+
 
             }
             //TODO gérer le cas des espaces blancs dans les data, faire en sorte de vérifier l'url pour classer entre text et image.
@@ -137,6 +166,7 @@ bot.on("message", msg => {
 
     }
 });
+
 bot.on('ready', () => {
     console.log('I am ready!');
 });
