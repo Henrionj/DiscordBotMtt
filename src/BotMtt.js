@@ -14,6 +14,7 @@ var fs = require('fs');
 var data_file;
 var commands;
 var embed;
+var current_demand;
 
 fs.readFile('data.json', 'utf8', function readFileCallback(err, data) {
     if (err) {
@@ -45,7 +46,6 @@ bot.on("message", msg => {
 
         if (typeof data_file[command] !== 'undefined') {
             embed.setTitle(msg.author.username);
-            console.log(data_file[command].type);
             switch (data_file[command].type) {
                 case 'image':
                     embed.setImage(data_file[command].data);
@@ -127,9 +127,15 @@ bot.on("message", msg => {
                     embed.setTitle(titre[1]);
                   //  embed.attachFile("../res/spoil_warning.png");
                   //  embed.setImage("attachment://" + "../res/spoil_warning.png");
+                    embed.set
                     msg.channel.send({
                         embed
-                    });
+                    }).then(function(msg){
+                        msg.react("👌");
+                        console.log(msg.id);
+                    }).catch(function() {
+              //Something
+             });
                     break;
 
 
@@ -167,6 +173,10 @@ bot.on("message", msg => {
     }
 });
 
+bot.on("messageReactionAdd", (msgReaction, usr) => {
+    console.log(msgReaction.id);
+});
+    
 bot.on('ready', () => {
     console.log('I am ready!');
 });
