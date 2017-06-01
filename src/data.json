@@ -22,5 +22,10 @@
     "nsfw": {
         "data": "https://cdn.discordapp.com/attachments/314146662413107211/314146787458023430/Undyne.jpg",
         "type": "image"
+    },
+    "spoil":{
+        "id":"",
+        "data":""
     }
+    
 }

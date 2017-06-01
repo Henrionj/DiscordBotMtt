@@ -132,7 +132,11 @@ bot.on("message", msg => {
                         embed
                     }).then(function(msg){
                         msg.react("👌");
-                        console.log(msg.id);
+                        data_file.spoil = {
+                            "id":msg.id,
+                            "data":spoiler[1]
+                        }
+                        console.log(data_file.spoil);
                     }).catch(function() {
               //Something
              });
