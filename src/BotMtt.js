@@ -127,7 +127,7 @@ bot.on("message", msg => {
                     embed.setTitle(titre[1]);
                   //  embed.attachFile("../res/spoil_warning.png");
                   //  embed.setImage("attachment://" + "../res/spoil_warning.png");
-                    embed.set
+                    embed.setDescription('add a reaction 👌 to see the spoiler.');
                     msg.channel.send({
                         embed
                     }).then(function(msg){
@@ -136,7 +136,9 @@ bot.on("message", msg => {
                             "id":msg.id,
                             "data":spoiler[1]
                         }
-                        console.log(data_file.spoil);
+                        console.log(msg.id);
+                        var json = JSON.stringify(data_file);
+                        fs.writeFile('data.json', json, 'utf8');
                     }).catch(function() {
               //Something
              });
@@ -178,7 +180,20 @@ bot.on("message", msg => {
 });
 
 bot.on("messageReactionAdd", (msgReaction, usr) => {
-    console.log(msgReaction.id);
+    if(data_file.spoil["id"] == msgReaction.message.id && msgReaction.emoji.toString()=="👌")
+        {
+                current_member = msgReaction.message.author;
+                current_member.send(data_file.spoil["data"]);
+//            if(current_member.dmChannel != null)
+//                {
+//                    current_member.dmChannel.send("test");
+//                }
+//            else
+//                {
+//                    current_member.createDM()
+//                }
+//                
+        }
 });
     
 bot.on('ready', () => {
