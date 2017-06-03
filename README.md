@@ -10,6 +10,6 @@ Running the bot on localhost: node BotMtt.js
 TODO 
 -------------------------------------------------------------------
 
-.account profile with commands to customize him
-.gif/image repo with commands to create them
-.spoil command
+.account profile with commands to customize him 0%
+.gif/image repo with commands to create them DONE 100%
+.spoil command IN DEVELOPMENT 70%
