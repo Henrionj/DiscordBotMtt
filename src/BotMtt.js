@@ -124,24 +124,28 @@ bot.on("message", msg => {
                     msg.delete();
                     spoiler = command.match(/spoil\s(.+)-t/);
                     titre = command.match(/-t(.+)/);
-                    embed.setTitle(titre[1]);
-                  //  embed.attachFile("../res/spoil_warning.png");
-                  //  embed.setImage("attachment://" + "../res/spoil_warning.png");
-                    embed.setDescription('add a reaction 👌 to see the spoiler.');
-                    msg.channel.send({
-                        embed
-                    }).then(function(msg){
-                        msg.react("👌");
-                        data_file.spoil = {
-                            "id":msg.id,
-                            "data":spoiler[1]
-                        }
-                        console.log(msg.id);
-                        var json = JSON.stringify(data_file);
-                        fs.writeFile('data.json', json, 'utf8');
-                    }).catch(function() {
-              //Something
-             });
+                    if (titre != null) {
+                        embed.setTitle(titre[1]);
+                        embed.setDescription('add a reaction 👌 to see the spoiler.');
+                        msg.channel.send({
+                            embed
+                        }).then(function (msg) {
+                            msg.react("👌");
+                            data_file.spoil = {
+                                "id": msg.id,
+                                "data": spoiler[1]
+                            }
+                            var json = JSON.stringify(data_file);
+                            fs.writeFile('data.json', json, 'utf8');
+                        }).catch(function () {});
+                    } else {
+                        embed.setTitle("Bad command :frowning:, please try this : ")
+                        embed.addField("spoiler", helpCommand("other", "spoil"));
+                        msg.channel.send({
+                            embed
+                        });
+                    }
+
                     break;
 
 
@@ -180,22 +184,34 @@ bot.on("message", msg => {
 });
 
 bot.on("messageReactionAdd", (msgReaction, usr) => {
-    if(data_file.spoil["id"] == msgReaction.message.id && msgReaction.emoji.toString()=="👌")
-        {
-                current_member = msgReaction.message.author;
-                current_member.send(data_file.spoil["data"]);
-//            if(current_member.dmChannel != null)
-//                {
-//                    current_member.dmChannel.send("test");
-//                }
-//            else
-//                {
-//                    current_member.createDM()
-//                }
-//                
+    if (!usr.bot) {
+
+        if (data_file.spoil["id"] == msgReaction.message.id && msgReaction.emoji.toString() == "👌") {
+
+            if (usr.dmChannel == null) {
+
+                usr.createDM().then(function (channel) {
+
+                    channel.send(data_file.spoil['data']);
+
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            } else {
+
+                usr.send(data_file.spoil['data']);
+            }
+
+
         }
+    }
 });
-    
+
+function helpCommand(command_theme, command) {
+    command_description = commands[command_theme];
+    return command_description[command];
+}
+
 bot.on('ready', () => {
     console.log('I am ready!');
 });

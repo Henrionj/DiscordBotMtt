@@ -1,13 +1,16 @@
 {
     "data": {
-        "add" : "::add data data_name \nTo add some image or smiley",
-        "delete" : "::delete data_name \nTo delete data_name",
-        "show_all" : ""
+        "add": "::add data data_name \nTo add some image or smiley.",
+        "delete": "::delete data_name \nTo delete data_name.",
+        "show_all": ""
     },
     "profile": {
-        "edit" : "::profile edit \nedit the current profile",
-        "default" : "::profile default \nset the current profile to default" ,
-        "show" : "::profile show \nshow profile"
+        "edit": "::profile edit \nedit the current profile.",
+        "default": "::profile default \nset the current profile to default.",
+        "show": "::profile show \nshow profile."
+    },
+    "other": {
+        "spoil": "::spoil spoiler -t title_spoil \nadd an embed spoiler tag (-t necessary, but no need blank case after)."
     }
 
 }
