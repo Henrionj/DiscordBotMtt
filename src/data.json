@@ -1,1 +1,32 @@
-{"cute":{"data":"https://cdn.discordapp.com/attachments/240561455819128832/241257595237564416/a78.gif","type":"image"},"zelote":{"data":"(╬ ಠ益ಠ)","type":"text"},"proud_genthial":{"data":"https://cdn.discordapp.com/attachments/244530502424461312/310392469470576642/Damien_Genthial.png","type":"image"},"undyne_blased":{"data":"https://images.discordapp.net/.eJwNxksSgyAMANC7cAAgIYh4Gxo-OqPCSLrq9O7tW72Pej-n2tQuMuZmTD4m9yfrKf1JrejWeztLGsfU3C-TRBLvV7llGiTyznqL9N8CDtA4ICC_ko0LxkgQVhNemRxhZa4eLfjKiKkyeMpAmIMed1PfH5UoKJ0.zY0Eeda7bu-4F5ep_SI8ccxhnws","type":"image"},"portrait":{"data":"https://68.media.tumblr.com/8d6862804bd2e00c6a7e342771d69e56/tumblr_nxofx64Gae1rof4d9o1_1280.png","type":"image"},"nsfw":{"data":"https://cdn.discordapp.com/attachments/314146662413107211/314146787458023430/Undyne.jpg","type":"image"},"spoil":{"id":"320355239934951444","data":"ca marche "}}
+{
+    "image": {
+        "cute": {
+            "data": "https://cdn.discordapp.com/attachments/240561455819128832/241257595237564416/a78.gif",
+            "type": "image"
+        },
+        "zelote": {
+            "data": "(╬ ಠ益ಠ)",
+            "type": "text"
+        },
+        "proud_genthial": {
+            "data": "https://cdn.discordapp.com/attachments/244530502424461312/310392469470576642/Damien_Genthial.png",
+            "type": "image"
+        },
+        "undyne_blased": {
+            "data": "https://images.discordapp.net/.eJwNxksSgyAMANC7cAAgIYh4Gxo-OqPCSLrq9O7tW72Pej-n2tQuMuZmTD4m9yfrKf1JrejWeztLGsfU3C-TRBLvV7llGiTyznqL9N8CDtA4ICC_ko0LxkgQVhNemRxhZa4eLfjKiKkyeMpAmIMed1PfH5UoKJ0.zY0Eeda7bu-4F5ep_SI8ccxhnws",
+            "type": "image"
+        },
+        "portrait": {
+            "data": "https://68.media.tumblr.com/8d6862804bd2e00c6a7e342771d69e56/tumblr_nxofx64Gae1rof4d9o1_1280.png",
+            "type": "image"
+        },
+        "nsfw": {
+            "data": "https://cdn.discordapp.com/attachments/314146662413107211/314146787458023430/Undyne.jpg",
+            "type": "image"
+        }
+    },
+    "spoil": {
+        "id": "320355239934951444",
+        "data": "ca marche "
+    }
+}

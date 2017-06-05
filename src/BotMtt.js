@@ -44,14 +44,15 @@ bot.on("message", msg => {
         var command = msg.content.substring(2, msg.content.length);
         embed = new Discord.RichEmbed();
 
-        if (typeof data_file[command] !== 'undefined') {
+        //On test d'abord si cela correspond à une image.
+        if (typeof data_file.image[command] !== 'undefined') {
             embed.setTitle(msg.author.username);
-            switch (data_file[command].type) {
+            switch (data_file.image[command].type) {
                 case 'image':
-                    embed.setImage(data_file[command].data);
+                    embed.setImage(data_file.image[command].data);
                     break;
                 case 'text':
-                    embed.setDescription(data_file[command].data);
+                    embed.setDescription(data_file.image[command].data);
                     break;
             }
 
@@ -61,20 +62,21 @@ bot.on("message", msg => {
             });
 
         }
-        var reg_command = /\w+/; //permet de recupérer le premier mot
 
+        //Sinon on teste si cela ressemble à une commande.
+        var reg_command = /\w+/; //permet de recupérer le premier mot
         if (reg_command.test(command)) {
             action = command.match(reg_command);
             switch (action[0]) {
                 case "add":
                     command = command.match(/add\s(.+)\s(.+)/);
                     if (/\.(gif|jpg|jpeg|tiff|png)$/i.test(command[1])) {
-                        data_file[command[2]] = {
+                        data_file.image[command[2]] = {
                             "data": command[1],
                             "type": "image"
                         };
                     } else {
-                        data_file[command[2]] = {
+                        data_file.image[command[2]] = {
                             "data": command[1],
                             "type": "text"
                         };
@@ -85,7 +87,7 @@ bot.on("message", msg => {
                     break;
                 case "delete":
                     command = command.match(/delete\s(\w+)/);
-                    delete data_file[command[1]];
+                    delete data_file.image[command[1]];
                     var json = JSON.stringify(data_file);
                     fs.writeFile('data.json', json, 'utf8');
                     msg.reply('delete complete!');
@@ -93,7 +95,7 @@ bot.on("message", msg => {
                 case "show_all":
                     embed.setTitle("Commandes possibles pour smiley/images :");
                     var keys = "";
-                    for (key in data_file) {
+                    for (key in data_file.image) {
                         keys = keys + "\n-" + key;
                     }
                     embed.setDescription(keys);
@@ -152,6 +154,8 @@ bot.on("message", msg => {
             }
             //TODO gérer le cas des espaces blancs dans les data, faire en sorte de vérifier l'url pour classer entre text et image.
 
+        } else {
+            console.log("pas de commande.");
         }
 
         //TODO faire les profils éditables
@@ -180,6 +184,13 @@ bot.on("message", msg => {
         //        break;
         //    }
 
+    } else {
+        var reg_command = /::(\w+)/;
+        if (reg_command.test(msg.content)) {
+            var command = msg.content.match(reg_command)[1];
+            var smiley = data_file.image[command];
+            msg.channel.send(msg.content.replace(reg_command, smiley['data']));
+        }
     }
 });
 
